@@ -7,6 +7,8 @@ from openpyxl.utils import get_column_letter
 
 app = Flask(__name__)
 app.secret_key = "change-this-secret-key-in-production"
+app.jinja_env.globals.update(enumerate=enumerate)
+app.jinja_env.globals.update(enumerate=enumerate)
 DB = "responses.db"
 
 # ── Database ──────────────────────────────────────────────────────────────────
@@ -132,7 +134,24 @@ def submit():
 def admin():
     with get_db() as conn:
         total = conn.execute("SELECT COUNT(*) FROM responses").fetchone()[0]
-    return render_template("admin.html", total=total)
+        today = conn.execute("SELECT COUNT(*) FROM responses WHERE DATE(submitted_at) = DATE('now')").fetchone()[0]
+        this_week = conn.execute("SELECT COUNT(*) FROM responses WHERE submitted_at >= DATE('now', '-7 days')").fetchone()[0]
+        gender_rows = conn.execute("SELECT gender, COUNT(*) as cnt FROM responses GROUP BY gender").fetchall()
+        gender = {r['gender']: r['cnt'] for r in gender_rows}
+        district_rows = conn.execute("SELECT district, COUNT(*) as cnt FROM responses GROUP BY district ORDER BY cnt DESC").fetchall()
+        districts = [(r['district'], r['cnt']) for r in district_rows]
+        cat_rows = conn.execute("SELECT stakeholder_category, COUNT(*) as cnt FROM responses GROUP BY stakeholder_category ORDER BY cnt DESC").fetchall()
+        categories = [(r['stakeholder_category'], r['cnt']) for r in cat_rows]
+        recent = conn.execute("SELECT submitted_at, gender, age_group, district, stakeholder_category FROM responses ORDER BY submitted_at DESC LIMIT 10").fetchall()
+    from datetime import datetime as dt
+    hour = dt.now().hour
+    greeting = "Good morning" if hour < 12 else "Good afternoon" if hour < 17 else "Good evening"
+    now_str = dt.now().strftime("%A, %d %B %Y")
+    return render_template("admin.html",
+        total=total, today=today, this_week=this_week,
+        gender=gender, districts=districts, categories=categories,
+        recent=recent, greeting=greeting, now=now_str
+    )
 
 @app.route("/download")
 def download():
