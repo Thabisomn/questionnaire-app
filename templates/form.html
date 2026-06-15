@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stakeholder Engagement – Questionnaire</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; color: #2d3748; }
+
+  .hero {
+    background: linear-gradient(135deg, #1F4E79, #2E75B6);
+    color: white; padding: 40px 20px; text-align: center;
+  }
+  .hero h1 { font-size: 1.5rem; font-weight: 700; max-width: 760px; margin: 0 auto 10px; }
+  .hero p { font-size: 0.95rem; opacity: 0.85; max-width: 680px; margin: 0 auto; }
+
+  .container { max-width: 800px; margin: 30px auto 60px; padding: 0 16px; }
+
+  .card {
+    background: white; border-radius: 12px; padding: 28px 32px;
+    margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .card-title {
+    font-size: 1rem; font-weight: 700; color: #1F4E79;
+    border-left: 4px solid #2E75B6; padding-left: 12px;
+    margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  .consent-box {
+    background: #EFF6FF; border: 1px solid #BFDBFE;
+    border-radius: 8px; padding: 20px; margin-bottom: 16px;
+    font-size: 0.92rem; line-height: 1.6;
+  }
+
+  .flash { background:#FEF3C7; border:1px solid #F59E0B; border-radius:8px;
+           padding:14px 18px; margin-bottom:18px; color:#92400E; font-size:0.9rem; }
+
+  .q-row { margin-bottom: 16px; }
+  .q-label { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; display: block; }
+  .options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .options label {
+    display: flex; align-items: center; gap: 6px;
+    background: #F7FAFC; border: 1.5px solid #CBD5E0;
+    border-radius: 8px; padding: 7px 14px; cursor: pointer;
+    font-size: 0.88rem; transition: all 0.15s;
+  }
+  .options input[type=radio] { accent-color: #2E75B6; }
+  .options label:hover { border-color: #2E75B6; background: #EBF5FF; }
+
+  /* Likert table */
+  .likert-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  .likert-table th {
+    background: #1F4E79; color: white; padding: 10px 8px;
+    text-align: center; font-weight: 600;
+  }
+  .likert-table th.stmt { text-align: left; width: 54%; }
+  .likert-table td { padding: 10px 8px; border-bottom: 1px solid #E2E8F0; }
+  .likert-table td.stmt { font-size: 0.87rem; }
+  .likert-table td.center { text-align: center; }
+  .likert-table tr:nth-child(even) td { background: #F7FAFC; }
+  .likert-table tr:hover td { background: #EBF5FF; }
+  .likert-table input[type=radio] { accent-color: #2E75B6; width: 17px; height: 17px; cursor: pointer; }
+
+  .scale-legend {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    font-size: 0.8rem; color: #4A5568; margin-bottom: 14px;
+  }
+  .scale-legend span {
+    background: #EDF2F7; border-radius: 4px; padding: 3px 8px;
+  }
+
+  .submit-btn {
+    display: block; width: 100%; padding: 16px;
+    background: linear-gradient(135deg, #1F4E79, #2E75B6);
+    color: white; border: none; border-radius: 10px;
+    font-size: 1.05rem; font-weight: 700; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .submit-btn:hover { opacity: 0.9; }
+
+  @media (max-width: 600px) {
+    .card { padding: 18px 14px; }
+    .likert-table th, .likert-table td { padding: 8px 4px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>The Role of Stakeholder Engagement in the Sustainability of Rural Development Projects in Lesotho</h1>
+  <p>Academic Research Questionnaire &mdash; All responses are confidential and anonymous.</p>
+</div>
+
+<div class="container">
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for cat, msg in messages %}
+      <div class="flash">⚠️ {{ msg }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <form method="POST" action="/submit">
+
+    <!-- CONSENT -->
+    <div class="card">
+      <div class="card-title">Introduction &amp; Consent</div>
+      <div class="consent-box">
+        I am conducting a study on the role of stakeholder engagement in the sustainability of rural development projects in Lesotho.
+        The information you provide will be used strictly for academic purposes. Your participation is voluntary, and all responses will remain
+        <strong>confidential and anonymous</strong>.
+      </div>
+      <div class="q-row">
+        <span class="q-label">Do you agree to participate in this study?</span>
+        <div class="options">
+          <label><input type="radio" name="consent" value="Yes" required> Yes</label>
+          <label><input type="radio" name="consent" value="No"> No</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION A -->
+    <div class="card">
+      <div class="card-title">Section A: Demographic Information</div>
+
+      <div class="q-row">
+        <span class="q-label">1. Gender</span>
+        <div class="options">
+          <label><input type="radio" name="gender" value="Male" required> Male</label>
+          <label><input type="radio" name="gender" value="Female"> Female</label>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <span class="q-label">2. Age Group</span>
+        <div class="options">
+          <label><input type="radio" name="age_group" value="18–30" required> 18–30 years</label>
+          <label><input type="radio" name="age_group" value="31–45"> 31–45 years</label>
+          <label><input type="radio" name="age_group" value="46+"> 46 years and above</label>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <span class="q-label">3. District</span>
+        <div class="options">
+          <label><input type="radio" name="district" value="Thaba-Tseka" required> Thaba-Tseka</label>
+          <label><input type="radio" name="district" value="Mokhotlong"> Mokhotlong</label>
+          <label><input type="radio" name="district" value="Quthing"> Quthing</label>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <span class="q-label">4. Stakeholder Category</span>
+        <div class="options">
+          <label><input type="radio" name="stakeholder_category" value="Community Member" required> Community Member</label>
+          <label><input type="radio" name="stakeholder_category" value="Local Leader"> Local Leader</label>
+          <label><input type="radio" name="stakeholder_category" value="Government Official"> Government Official</label>
+          <label><input type="radio" name="stakeholder_category" value="NGO Representative"> NGO Representative</label>
+          <label><input type="radio" name="stakeholder_category" value="Project Manager"> Project Manager</label>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <span class="q-label">5. Level of Education</span>
+        <div class="options">
+          <label><input type="radio" name="education" value="No Formal Education" required> No Formal Education</label>
+          <label><input type="radio" name="education" value="Primary"> Primary</label>
+          <label><input type="radio" name="education" value="Secondary"> Secondary</label>
+          <label><input type="radio" name="education" value="Tertiary"> Tertiary</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION B -->
+    {% set scale_legend %}
+    <div class="scale-legend">
+      <span>1 = Strongly Disagree</span><span>2 = Disagree</span><span>3 = Neutral</span><span>4 = Agree</span><span>5 = Strongly Agree</span>
+    </div>
+    {% endset %}
+
+    <div class="card">
+      <div class="card-title">Section B: Stakeholder Engagement Practices</div>
+      {{ scale_legend }}
+
+      <p style="font-size:0.85rem;font-weight:700;color:#1F4E79;margin:10px 0 6px;">Participation</p>
+      <table class="likert-table">
+        <thead><tr>
+          <th class="stmt">Statement</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr></thead>
+        <tbody>
+          {% for name, stmt in [
+            ('b1','I was involved in project planning'),
+            ('b2','Community members participate in decision-making'),
+            ('b3','Stakeholders are involved in project implementation'),
+            ('b4','Community members are consulted regularly')
+          ] %}
+          <tr>
+            <td class="stmt">{{ stmt }}</td>
+            {% for v in range(1,6) %}
+            <td class="center"><input type="radio" name="{{ name }}" value="{{ v }}" required></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <p style="font-size:0.85rem;font-weight:700;color:#1F4E79;margin:18px 0 6px;">Communication</p>
+      <table class="likert-table">
+        <thead><tr>
+          <th class="stmt">Statement</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr></thead>
+        <tbody>
+          {% for name, stmt in [
+            ('b5','Project information is clearly communicated to stakeholders'),
+            ('b6','I receive regular updates about the project'),
+            ('b7','Communication between project leaders and the community is effective'),
+            ('b8','Stakeholders are informed about project decisions'),
+            ('b9','Feedback from the community is considered by project leaders')
+          ] %}
+          <tr>
+            <td class="stmt">{{ stmt }}</td>
+            {% for v in range(1,6) %}
+            <td class="center"><input type="radio" name="{{ name }}" value="{{ v }}" required></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <p style="font-size:0.85rem;font-weight:700;color:#1F4E79;margin:18px 0 6px;">Collaboration</p>
+      <table class="likert-table">
+        <thead><tr>
+          <th class="stmt">Statement</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr></thead>
+        <tbody>
+          {% for name, stmt in [
+            ('b10','Stakeholders work together in project activities'),
+            ('b11','There is cooperation between community members and project leaders'),
+            ('b12','Different stakeholders share responsibilities'),
+            ('b13','Partnerships exist between government, NGOs, and communities')
+          ] %}
+          <tr>
+            <td class="stmt">{{ stmt }}</td>
+            {% for v in range(1,6) %}
+            <td class="center"><input type="radio" name="{{ name }}" value="{{ v }}" required></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <p style="font-size:0.85rem;font-weight:700;color:#1F4E79;margin:18px 0 6px;">Empowerment</p>
+      <table class="likert-table">
+        <thead><tr>
+          <th class="stmt">Statement</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr></thead>
+        <tbody>
+          {% for name, stmt in [
+            ('b14','I have influence over project decisions'),
+            ('b15','Community members are given leadership roles'),
+            ('b16','Stakeholders are trained to manage projects'),
+            ('b17','Local people have the capacity to sustain the project')
+          ] %}
+          <tr>
+            <td class="stmt">{{ stmt }}</td>
+            {% for v in range(1,6) %}
+            <td class="center"><input type="radio" name="{{ name }}" value="{{ v }}" required></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION C -->
+    <div class="card">
+      <div class="card-title">Section C: Project Sustainability</div>
+      {{ scale_legend }}
+      <table class="likert-table">
+        <thead><tr>
+          <th class="stmt">Statement</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr></thead>
+        <tbody>
+          {% for name, stmt in [
+            ('c1','The project continues after external funding ends'),
+            ('c2','The community maintains project infrastructure'),
+            ('c3','The project meets long-term community needs'),
+            ('c4','There are systems in place to sustain the project')
+          ] %}
+          <tr>
+            <td class="stmt">{{ stmt }}</td>
+            {% for v in range(1,6) %}
+            <td class="center"><input type="radio" name="{{ name }}" value="{{ v }}" required></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION D -->
+    <div class="card">
+      <div class="card-title">Section D: Stakeholder Perceptions</div>
+      {{ scale_legend }}
+      <table class="likert-table">
+        <thead><tr>
+          <th class="stmt">Statement</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr></thead>
+        <tbody>
+          {% for name, stmt in [
+            ('d1','I feel included in project decision-making'),
+            ('d2','I trust the leadership of the project'),
+            ('d3','I am satisfied with my level of participation'),
+            ('d4','Stakeholder engagement in this project is fair')
+          ] %}
+          <tr>
+            <td class="stmt">{{ stmt }}</td>
+            {% for v in range(1,6) %}
+            <td class="center"><input type="radio" name="{{ name }}" value="{{ v }}" required></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION E -->
+    <div class="card">
+      <div class="card-title">Section E: Barriers to Stakeholder Engagement</div>
+      {{ scale_legend }}
+      <table class="likert-table">
+        <thead><tr>
+          <th class="stmt">Statement</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr></thead>
+        <tbody>
+          {% for name, stmt in [
+            ('e1','Lack of resources limits participation'),
+            ('e2','Power imbalances affect participation'),
+            ('e3','Lack of information limits engagement'),
+            ('e4','Weak institutions affect project sustainability')
+          ] %}
+          <tr>
+            <td class="stmt">{{ stmt }}</td>
+            {% for v in range(1,6) %}
+            <td class="center"><input type="radio" name="{{ name }}" value="{{ v }}" required></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION F -->
+    <div class="card">
+      <div class="card-title">Section F: Enablers of Stakeholder Engagement</div>
+      {{ scale_legend }}
+      <table class="likert-table">
+        <thead><tr>
+          <th class="stmt">Statement</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr></thead>
+        <tbody>
+          {% for name, stmt in [
+            ('f1','Strong leadership improves stakeholder engagement'),
+            ('f2','Training improves participation'),
+            ('f3','Good communication enhances project success'),
+            ('f4','Government support improves sustainability')
+          ] %}
+          <tr>
+            <td class="stmt">{{ stmt }}</td>
+            {% for v in range(1,6) %}
+            <td class="center"><input type="radio" name="{{ name }}" value="{{ v }}" required></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit Questionnaire →</button>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin – Questionnaire Responses</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; }
+  .header {
+    background: linear-gradient(135deg, #1F4E79, #2E75B6);
+    color: white; padding: 28px 32px;
+  }
+  .header h1 { font-size: 1.3rem; }
+  .header p { opacity: 0.8; font-size: 0.9rem; margin-top: 4px; }
+  .container { max-width: 600px; margin: 40px auto; padding: 0 16px; }
+  .card {
+    background: white; border-radius: 12px; padding: 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07); text-align: center;
+  }
+  .stat { font-size: 4rem; font-weight: 800; color: #2E75B6; }
+  .stat-label { color: #4A5568; font-size: 1rem; margin-top: 4px; margin-bottom: 28px; }
+  .btn {
+    display: inline-block; padding: 14px 32px;
+    background: linear-gradient(135deg, #1F4E79, #2E75B6);
+    color: white; border-radius: 8px; text-decoration: none;
+    font-weight: 700; font-size: 1rem; transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.88; }
+  .note { font-size: 0.8rem; color: #718096; margin-top: 14px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <h1>📊 Admin Dashboard</h1>
+    <p>Stakeholder Engagement Questionnaire</p>
+  </div>
+  <div class="container">
+    <div class="card">
+      <div class="stat">{{ total }}</div>
+      <div class="stat-label">Total Responses Collected</div>
+      <a href="/download" class="btn">⬇ Download Excel File</a>
+      <p class="note">Downloads all responses as a formatted .xlsx file.</p>
+    </div>
+  </div>
+</body>
+</html>
